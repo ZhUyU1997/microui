@@ -56,7 +56,7 @@ static mu_Style default_style = {
     { 230, 230, 230, 255 }, /* MU_COLOR_TEXT */
     { 25,  25,  25,  255 }, /* MU_COLOR_BORDER */
     { 50,  50,  50,  255 }, /* MU_COLOR_WINDOWBG */
-    { 20,  20,  20,  255 }, /* MU_COLOR_TITLEBG */
+    { 25,  25,  25,  255 }, /* MU_COLOR_TITLEBG */
     { 240, 240, 240, 255 }, /* MU_COLOR_TITLETEXT */
     { 0,   0,   0,   0   }, /* MU_COLOR_PANELBG */
     { 75,  75,  75,  255 }, /* MU_COLOR_BUTTON */
@@ -903,7 +903,7 @@ int mu_number_ex(mu_Context *ctx, mu_Real *value, mu_Real step,
 
 
 int mu_number(mu_Context *ctx, mu_Real *value, mu_Real step) {
-  return mu_number_ex(ctx, value, step, "%.03f", MU_OPT_ALIGNCENTER);
+  return mu_number_ex(ctx, value, step, MU_SLIDER_FMT, MU_OPT_ALIGNCENTER);
 }
 
 
@@ -983,7 +983,7 @@ void mu_end_treenode(mu_Context *ctx) {
       /* draw base and thumb */                                             \
       ctx->draw_frame(ctx, base, MU_COLOR_SCROLLBASE);                      \
       thumb = base;                                                         \
-      thumb.h = mu_max(16, base.h * b->h / cs.y);                           \
+      thumb.h = mu_max(ctx->style->thumb_size, base.h * b->h / cs.y);       \
       thumb.y += cnt->scroll.y * (base.h - thumb.h) / maxscroll;            \
       ctx->draw_frame(ctx, thumb, MU_COLOR_SCROLLTHUMB);                    \
                                                                             \
